@@ -33,35 +33,33 @@ class BookSerializer(ModelSerializer):
 
         book.save()
         return book
-    # def update(self, instance, validated_data,partial=True):
-    #     author_name = validated_data.pop('author_name')
-    #     instance.book_name = validated_data['book_name']
-    #     instance.price = validated_data['price']
-    #     instance.summary = validated_data['summary']
-    #     authors_list = []
-    #     for author in author_name:
-    #         author, created = Authors.objects.get_or_create(author_name=author['author_name'])
-    #         authors_list.append(author)
-    #     instance.author_name.set(authors_list)
-    #     instance.save()
-    #     return instance
+
 
     def update(self, instance, validated_data):
         authors_list = []
 
-        try:
-            author_name = validated_data.pop('author_name')
+        # try:
+        #     author_name = validated_data.pop('author_name')
             
+        #     for author in author_name:
+        #         # print(author)
+        #         author, created = Authors.objects.get_or_create(author_name=author['author_name'])
+        #         authors_list.append(author)
+        #     # instance.author_name.set(authors_list)
+            
+        # except:
+        #     for author in instance.author_name.all():
+        #         authors_list.append(author)
+        
+        author_name = validated_data.pop('author_name',None)
+        if author_name is not None:
             for author in author_name:
-                # print(author)
                 author, created = Authors.objects.get_or_create(author_name=author['author_name'])
                 authors_list.append(author)
-            # instance.author_name.set(authors_list)
-            
-        except:
+        else:
             for author in instance.author_name.all():
                 authors_list.append(author)
-            
+
 
         instance.author_name.set(authors_list)
         instance.book_name = validated_data.get('book_name', instance.book_name)
