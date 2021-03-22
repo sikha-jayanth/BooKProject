@@ -83,8 +83,8 @@ Body -
                
            	 }
       	  ],
-       	 "pub_year": 1878,
-       	 "price": 500,
+	"pub_year": 1878,
+	"price": 500,
  "summary": "The story centers on an extramarital affair between Anna and dashing cavalry officer Count Alexei Kirillovich Vronsky that scandalizes the social circles of Saint Petersburg and forces the young lovers to flee to Italy in a search for happiness, but after they return to Russia, their lives further unravel."
     }
 	Response - status 201 created
