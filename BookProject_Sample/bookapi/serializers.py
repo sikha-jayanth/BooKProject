@@ -36,32 +36,17 @@ class BookSerializer(ModelSerializer):
 
 
     def update(self, instance, validated_data):
-        authors_list = []
-
-        # try:
-        #     author_name = validated_data.pop('author_name')
-            
-        #     for author in author_name:
-        #         # print(author)
-        #         author, created = Authors.objects.get_or_create(author_name=author['author_name'])
-        #         authors_list.append(author)
-        #     # instance.author_name.set(authors_list)
-            
-        # except:
-        #     for author in instance.author_name.all():
-        #         authors_list.append(author)
-        
-        author_name = validated_data.pop('author_name',None)
-        if author_name is not None:
+        authors_list = []   
+        author_name = validated_data.get('author_name')
+        if author_name:
             for author in author_name:
                 author, created = Authors.objects.get_or_create(author_name=author['author_name'])
                 authors_list.append(author)
-        else:
-            for author in instance.author_name.all():
-                authors_list.append(author)
-
-
-        instance.author_name.set(authors_list)
+            instance.author_name.set(authors_list)
+        # else:
+        #     for author in instance.author_name.all():
+        #         authors_list.append(author)
+        
         instance.book_name = validated_data.get('book_name', instance.book_name)
         instance.pub_year=validated_data.get('pub_year', instance.pub_year)
         instance.price = validated_data.get('price', instance.price) 
